@@ -36,7 +36,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	wc.hInstance = instance;
 	wc.lpszClassName = name.data();//安全なstringにしてる
 	wc.hCursor = LoadCursor(nullptr, IDC_ARROW);
-	wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);//ウィンドウの色変更
+	wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);//ウィンドウの色変更/BLACK_BRUSH/GRAY_BRUSH
 
 	RegisterClass(&wc);//クラス内に設定
 

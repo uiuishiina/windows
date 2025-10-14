@@ -13,15 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="windowclass.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
+    <Filter Include="window">
+      <UniqueIdentifier>{1ae5c143-6bb7-4b3c-ab84-5439be17e86a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="entry">
+      <UniqueIdentifier>{e22331c5-f418-44d1-8316-9bbebafc53a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="window.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>window</Filter>
     </ClCompile>
+    <ClCompile Include="entry.cpp">
+      <Filter>entry</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="windowclass.h">
+      <Filter>window</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
