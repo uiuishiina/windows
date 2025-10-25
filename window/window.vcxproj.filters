@@ -19,18 +19,45 @@
     <Filter Include="entry">
       <UniqueIdentifier>{e22331c5-f418-44d1-8316-9bbebafc53a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DirectX">
+      <UniqueIdentifier>{03f1e787-1430-4f9e-ade4-cb3e793ec702}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="window.cpp">
       <Filter>window</Filter>
     </ClCompile>
-    <ClCompile Include="entry.cpp">
+    <ClCompile Include="..\entry\entry.cpp">
       <Filter>entry</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DirectX\Swapchain.cpp">
+      <Filter>DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DirectX\CommandQueue.cpp">
+      <Filter>DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DirectX\Device.cpp">
+      <Filter>DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DirectX\DXGI.cpp">
+      <Filter>DirectX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="windowclass.h">
       <Filter>window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectX\Swapchainclassh.h">
+      <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectX\CommandQueueclass.h">
+      <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectX\Deviceclass.h">
+      <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectX\DXGIclass.h">
+      <Filter>DirectX</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -124,10 +124,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\DirectX\CommandQueueclass.h" />
+    <ClInclude Include="..\DirectX\Deviceclass.h" />
+    <ClInclude Include="..\DirectX\DXGIclass.h" />
+    <ClInclude Include="..\DirectX\Swapchainclassh.h" />
     <ClInclude Include="windowclass.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="entry.cpp" />
+    <ClCompile Include="..\DirectX\CommandQueue.cpp" />
+    <ClCompile Include="..\DirectX\Device.cpp" />
+    <ClCompile Include="..\DirectX\DXGI.cpp" />
+    <ClCompile Include="..\DirectX\Swapchain.cpp" />
+    <ClCompile Include="..\entry\entry.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

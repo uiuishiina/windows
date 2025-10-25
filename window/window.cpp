@@ -29,7 +29,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 *@param name ウィンドウの名前
 *@return 成功可否をintみたいなので返す
 */
-[[nodiscard]] HRESULT window::Create(HINSTANCE instance, int width, int heigth, std::string_view name)noexcept{
+[[nodiscard]] HRESULT window::Create(HINSTANCE instance, int width, int height, std::string_view name)noexcept{
 	//ウィンドウの定義
 	WNDCLASS wc{};//クラス作成
 	wc.lpfnWndProc = WindowProc;
@@ -42,7 +42,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 
 	//ウィンドウ作成
 	hwnd_ = CreateWindow(wc.lpszClassName, wc.lpszClassName,
-		WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, width, heigth,
+		WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, width, height,
 		NULL, NULL, instance, NULL);
 
 	if (!hwnd_){
@@ -52,6 +52,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	ShowWindow(hwnd_, SW_SHOW);//ウィンドウ表示
 
 	UpdateWindow(hwnd_);//ウィンドウ更新
+	witdh_ = width;
+	height_ = height;
 
 	return S_OK;//できてるのでtrue
 }
@@ -69,4 +71,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 	}
 
 	return true;
+}
+
+[[nodiscard]] HWND window::handle() const noexcept{
+	return hwnd_;
+}
+
+[[nodiscard]] std::pair<int, int> window::size() const noexcept {
+	return {witdh_,height_};
 }

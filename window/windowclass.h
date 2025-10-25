@@ -17,12 +17,16 @@ public:
 	*@param name ウィンドウの名前
 	*@return 成功可否をintみたいなので返す
 	*/
-	[[nodiscard]] HRESULT Create(HINSTANCE instance, int width, int heigth, std::string_view name)noexcept;
+	[[nodiscard]] HRESULT Create(HINSTANCE instance, int width, int height, std::string_view name)noexcept;
 	//-----------------------------------------------------------------
 	/*
 	*@brief メッセージループ関数
 	*/
 	[[nodiscard]] bool MessageLoop()const noexcept;
+
+	[[nodiscard]] HWND handle() const noexcept;
+
+	[[nodiscard]] std::pair<int, int> size() const noexcept;
 private:
 	//-----------------------------------------------------------------
 	/*
@@ -30,4 +34,6 @@ private:
 	* 作るウィンドウのクラスみたいなのを宣言しとく
 	*/
 	HWND hwnd_{};
+	int  witdh_ = 0;
+	int  height_ = 0;
 };
