@@ -50,3 +50,11 @@ Swapchain::~Swapchain()
 	}
 	return swapchain_;
 }
+
+[[nodiscard]] const DXGI_SWAP_CHAIN_DESC1& Swapchain::getDesc()const noexcept
+{
+	if (!swapchain_) {
+		assert(false && "スワップチェーンを未作成");
+	}
+	return swapDesc_;
+}

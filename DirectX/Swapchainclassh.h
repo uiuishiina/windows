@@ -14,6 +14,10 @@ public:
 
 	//
 	[[nodiscard]] IDXGISwapChain3* get()const noexcept;
+
+	//
+	[[nodiscard]] const DXGI_SWAP_CHAIN_DESC1& getDesc()const noexcept;
 private:
 	IDXGISwapChain3* swapchain_;
+	DXGI_SWAP_CHAIN_DESC1 swapDesc_;
 };

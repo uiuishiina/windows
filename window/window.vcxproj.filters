@@ -27,9 +27,6 @@
     <ClCompile Include="window.cpp">
       <Filter>window</Filter>
     </ClCompile>
-    <ClCompile Include="..\entry\entry.cpp">
-      <Filter>entry</Filter>
-    </ClCompile>
     <ClCompile Include="..\DirectX\Swapchain.cpp">
       <Filter>DirectX</Filter>
     </ClCompile>
@@ -41,6 +38,24 @@
     </ClCompile>
     <ClCompile Include="..\DirectX\DXGI.cpp">
       <Filter>DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DirectX\ComandAllocater.cpp">
+      <Filter>DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DirectX\ComandList.cpp">
+      <Filter>DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DirectX\DescripterHeap.cpp">
+      <Filter>DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DirectX\Fence.cpp">
+      <Filter>DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DirectX\RenderTarget.cpp">
+      <Filter>DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\entry\entry.cpp">
+      <Filter>entry</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -57,6 +72,21 @@
       <Filter>DirectX</Filter>
     </ClInclude>
     <ClInclude Include="..\DirectX\DXGIclass.h">
+      <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectX\ComandAllocaterclass.h">
+      <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectX\ComandListclass.h">
+      <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectX\DescripterHeapclass.h">
+      <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectX\Fenceclass.h">
+      <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectX\ReaderTargetclass.h">
       <Filter>DirectX</Filter>
     </ClInclude>
   </ItemGroup>
