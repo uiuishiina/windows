@@ -7,6 +7,9 @@ namespace {
         DirectX::XMFLOAT3 position;
         DirectX::XMFLOAT4 color; 
     };
+
+    Vertex T[] = {{ {-0.5f, -0.5f, 0} , {  0,  0, 1.0, 1.0} },{ { 0.5f,  0.5f,  0} , {  0,  0, 1.0, 1.0} },{ { 0.5f, -0.5f,  0} , {  0,  0, 1.0, 1.0} },};
+    Vertex P[] = { { {-0.5f, -0.5f, 0} , {  1,  0,   0, 1.0} },{ { -0.5f,  0.5f,  0} , {  1,  0,   0, 1.0} },{ { 0.5f, 0.5f,  0} , {  1,  0,   0, 1.0} }, };
 }
 
 MakePolygon :: ~MakePolygon()
@@ -23,33 +26,35 @@ MakePolygon :: ~MakePolygon()
 
 [[nodiscard]] bool MakePolygon::create(const Device& device)noexcept
 {
-    if (!createVertexBuffer(device)) {
-        return false;
-    }
-    if (!createIndexBuffer(device)) {
-        return false;
+    for (int i= 0; i< 2; i++)
+    {
+        if (!createVertexBuffer(device, i)) {
+            return false;
+        }
+        if (!createIndexBuffer(device, i)) {
+            return false;
+        }
     }
     return true;
 }
 
 [[nodiscard]] void MakePolygon::draw(const CommandList& commandList)noexcept
 {
-    commandList.get()->IASetVertexBuffers(0, 1, &vertexBufferView_);
-    commandList.get()->IASetIndexBuffer(&indexBufferView_);
+    commandList.get()->IASetVertexBuffers(0, 1, &vertexBufferView_[0]);
+    commandList.get()->IASetIndexBuffer(&indexBufferView_[0]);
+    commandList.get()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+    commandList.get()->DrawIndexedInstanced(3, 1, 0, 0, 0);
+
+    commandList.get()->IASetVertexBuffers(0, 1, &vertexBufferView_[1]);
+    commandList.get()->IASetIndexBuffer(&indexBufferView_[1]);
     commandList.get()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
     commandList.get()->DrawIndexedInstanced(3, 1, 0, 0, 0);
 }
 
-[[nodiscard]] bool MakePolygon::createVertexBuffer(const Device& device)noexcept
+[[nodiscard]] bool MakePolygon::createVertexBuffer(const Device& device, const int num)noexcept
 {
-    Vertex triangle[] = {
-        { {    0,  0.5f,   0} , { 1.0,  0,  0, 1.0} },
-        { { 0.5f, -0.5f,   0} , {  0, 1.0,  0, 1.0} },
-        { {-0.5f, -0.5f,   0} , {  0,  0, 1.0, 1.0} }
-    };
-
-    const auto vertexBuffersize = sizeof(triangle);
-
+    auto vertexBuffersize = sizeof(T);
+    
     D3D12_HEAP_PROPERTIES heapPropaty{};
     heapPropaty.Type = D3D12_HEAP_TYPE_UPLOAD;
     heapPropaty.CPUPageProperty = D3D12_CPU_PAGE_PROPERTY_UNKNOWN;
@@ -86,18 +91,24 @@ MakePolygon :: ~MakePolygon()
         return false;
     }
 
-    memcpy_s(data, vertexBuffersize, triangle, vertexBuffersize);
+    
+    if (num != 0) {
+        memcpy_s(data, vertexBuffersize, P, vertexBuffersize);
+    }
+    else {
+        memcpy_s(data, vertexBuffersize, T, vertexBuffersize);
+    }
 
     vertexBuffer_->Unmap(0, nullptr);
 
-    vertexBufferView_.BufferLocation = vertexBuffer_->GetGPUVirtualAddress();
-    vertexBufferView_.SizeInBytes = vertexBuffersize;
-    vertexBufferView_.StrideInBytes = sizeof(Vertex);
+    vertexBufferView_[num].BufferLocation = vertexBuffer_->GetGPUVirtualAddress();
+    vertexBufferView_[num].SizeInBytes = vertexBuffersize;
+    vertexBufferView_[num].StrideInBytes = sizeof(Vertex);
 
     return true;
 }
 
-[[nodiscard]] bool MakePolygon::createIndexBuffer(const Device& device)noexcept
+[[nodiscard]] bool MakePolygon::createIndexBuffer(const Device& device,const int num)noexcept
 {
     uint16_t triangle[] = { 0, 1, 2};
 
@@ -145,9 +156,9 @@ MakePolygon :: ~MakePolygon()
 
     indexBuffer_->Unmap(0, nullptr);
 
-    indexBufferView_.BufferLocation = indexBuffer_->GetGPUVirtualAddress();
-    indexBufferView_.SizeInBytes = indexBuffersize;
-    indexBufferView_.Format = DXGI_FORMAT_R16_UINT;
+    indexBufferView_[num].BufferLocation = indexBuffer_->GetGPUVirtualAddress();
+    indexBufferView_[num].SizeInBytes = indexBuffersize;
+    indexBufferView_[num].Format = DXGI_FORMAT_R16_UINT;
 
     return true;
 }

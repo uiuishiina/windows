@@ -18,14 +18,14 @@ public:
 	[[nodiscard]] void draw(const CommandList& commandList)noexcept;
 
 	//頂点バッファ
-	[[nodiscard]] bool createVertexBuffer(const Device& device)noexcept;
+	[[nodiscard]] bool createVertexBuffer(const Device& device, const int num)noexcept;
 
 	//インデックスバッファ
-	[[nodiscard]] bool createIndexBuffer(const Device& device)noexcept;
+	[[nodiscard]] bool createIndexBuffer(const Device& device, const int num)noexcept;
 private:
 	ID3D12Resource* vertexBuffer_{};
 	ID3D12Resource* indexBuffer_{};
 
-	D3D12_VERTEX_BUFFER_VIEW vertexBufferView_ = {};
-	D3D12_INDEX_BUFFER_VIEW indexBufferView_ = {};
+	D3D12_VERTEX_BUFFER_VIEW vertexBufferView_[2] = {};
+	D3D12_INDEX_BUFFER_VIEW indexBufferView_[2] = {};
 };
