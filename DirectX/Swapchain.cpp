@@ -22,6 +22,7 @@ Swapchain::~Swapchain()
 	desc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 	desc.SampleDesc.Count = 1;
 
+	swapDesc_ = desc;
 	IDXGISwapChain1* tempSwapChain{};{
 		const HRESULT hr = dxgi.Factry()->CreateSwapChainForHwnd(command.get(), wind.handle(), &desc, nullptr, nullptr, &tempSwapChain);
 		if (FAILED(hr)){

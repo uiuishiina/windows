@@ -105,7 +105,7 @@ public:
 			auto rtRToP = resourceBarrier(rendertarget_.get(BackBufferIndex), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
 			commandList_.get()->ResourceBarrier(1, &rtRToP);
 
-			commandList_.get()->Close();
+			//commandList_.get()->Close();
 
 			ID3D12CommandList* ppCommandList[] = { commandList_.get() };
 			command_.get()->ExecuteCommandLists(_countof(ppCommandList), ppCommandList);

@@ -36,7 +36,7 @@ void CommandList::reset(const ComandAllocater& Allocator)noexcept
 //
 [[nodiscard]] ID3D12GraphicsCommandList* CommandList::get()const noexcept
 {
-	if (commandList_) {
+	if (!commandList_) {
 		assert(false && "コマンドリストが未作成");
 		return nullptr;
 	}
