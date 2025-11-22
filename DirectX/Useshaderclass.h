@@ -18,6 +18,6 @@ public:
 	//ピクセルシェーダーの取得
 	[[nodiscard]] ID3DBlob* getPixelShader()const noexcept;
 private:
-	ID3DBlob* vertexShader_{};//頂点シェーダーのアドレス
-	ID3DBlob* pixelShader_{};//ピクセルシェーダーのアドレス
+	ID3DBlob* vertexShader_{};///頂点シェーダーのアドレス
+	ID3DBlob* pixelShader_{};///ピクセルシェーダーのアドレス
 };

@@ -22,9 +22,6 @@
     <Filter Include="DirectX">
       <UniqueIdentifier>{03f1e787-1430-4f9e-ade4-cb3e793ec702}</UniqueIdentifier>
     </Filter>
-    <Filter Include="shader">
-      <UniqueIdentifier>{8bbb7f99-36af-4ab9-8bfa-63eb87e7abbe}</UniqueIdentifier>
-    </Filter>
     <Filter Include="drawResource">
       <UniqueIdentifier>{e168b556-07d6-45d2-8a04-6ca4574604ef}</UniqueIdentifier>
     </Filter>

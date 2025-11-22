@@ -132,7 +132,7 @@ public:
 
 			//ここからコマンドリスト内の書き込み
 			//描画情報をここで全部書く
-			commandList_.get()->ClearRenderTargetView(handles[0], clearColer[0], 0, nullptr);
+			commandList_.get()->ClearRenderTargetView(handles[0], clearColer[3], 0, nullptr);
 
 			//
 			commandList_.get()->SetPipelineState(piplinestate_.get());
