@@ -49,7 +49,7 @@ RenderTarget:: ~RenderTarget()
 	auto heapType = heap.getType();
 	assert(heapType == D3D12_DESCRIPTOR_HEAP_TYPE_RTV && "ディスクリプターヒープのタイプが一致してません");
 
-	handle.ptr += device.get()->GetDescriptorHandleIncrementSize(heapType);
+	handle.ptr += (index * device.get()->GetDescriptorHandleIncrementSize(heapType));
 	return handle;
 }
 

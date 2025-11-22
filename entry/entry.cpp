@@ -84,34 +84,61 @@ public:
 	void Loop()noexcept {
 		while (window_.MessageLoop()) {
 			
+			//
 			const auto BackBufferIndex = Swap_.get()->GetCurrentBackBufferIndex();
 
+			//使いたいフェンスが動いているなら止まる
 			if (frameFenceValue_[BackBufferIndex] != 0) {
 				fence_.wait(frameFenceValue_[BackBufferIndex]);
 			}
 
+			//使いたいフェンスにかかわるものを初期化
 			commandAllocator_[BackBufferIndex].reset();
 			commandList_.reset(commandAllocator_[BackBufferIndex]);
 
+			//使いたいレンダーターゲットとコマンドリストにリソースバリアの書き込み
 			auto pToRT = resourceBarrier(rendertarget_.get(BackBufferIndex), D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET);
 			commandList_.get()->ResourceBarrier(1, &pToRT);
 
+			//使いたいディスクリプターハンドルを取得しコマンドリストに設定
 			D3D12_CPU_DESCRIPTOR_HANDLE handles[] = { rendertarget_.getDescripterHandle(device_,descriptor_,BackBufferIndex) };
 			commandList_.get()->OMSetRenderTargets(1, handles, false, nullptr);
 
-			const float clearColer[] = { 1.0f, 1.0f, 0.0f, 1.0f };
+			//ここからコマンドリスト内の書き込み
+			//描画情報をここで全部書く
+			const float clearColer[] = { 1.0f, 1.0f, 1.0f, 0.0f };
 			commandList_.get()->ClearRenderTargetView(handles[0], clearColer, 0, nullptr);
 
+
+			{
+				//
+				
+				//
+
+				//
+				
+				//
+
+				//
+
+				//
+
+				//
+			}
+
+			//書き込み終わったら使ったレンダーターゲットとコマンドリストにリソースバリアの書き込み
 			auto rtRToP = resourceBarrier(rendertarget_.get(BackBufferIndex), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
 			commandList_.get()->ResourceBarrier(1, &rtRToP);
+			//コマンドリストを閉じて設定終了
+			commandList_.get()->Close();
 
-			//commandList_.get()->Close();
-
+			//書き込んだコマンドリストを実行
 			ID3D12CommandList* ppCommandList[] = { commandList_.get() };
 			command_.get()->ExecuteCommandLists(_countof(ppCommandList), ppCommandList);
-
+			//スワップチェーンに設定
 			Swap_.get()->Present(1, 0);
 
+			//コマンドクエイクに情報を設定しもろもろの更新
 			command_.get()->Signal(fence_.get(), nextFenceValue_);
 			frameFenceValue_[BackBufferIndex] = nextFenceValue_;
 			nextFenceValue_++;
@@ -119,13 +146,15 @@ public:
 	}
 
 	//----------------------------------------------------------------------------------------
+	//リソースバリアの設定(設定するレンダーターゲット、使用するリソースバリアの指定)
 	D3D12_RESOURCE_BARRIER resourceBarrier(ID3D12Resource* resource, D3D12_RESOURCE_STATES from, D3D12_RESOURCE_STATES to)noexcept {
+
 		D3D12_RESOURCE_BARRIER barrier{};
 		barrier.Type = D3D12_RESOURCE_BARRIER_TYPE_TRANSITION;
 		barrier.Flags = D3D12_RESOURCE_BARRIER_FLAG_NONE;
 		barrier.Transition.pResource = resource;
-		barrier.Transition.StateBefore = from;
-		barrier.Transition.StateAfter = to;
+		barrier.Transition.StateBefore = from;//
+		barrier.Transition.StateAfter = to;//
 		barrier.Transition.Subresource = D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES;
 
 		return barrier;
