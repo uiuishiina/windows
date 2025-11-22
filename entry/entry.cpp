@@ -9,6 +9,12 @@
 #include"../DirectX/ComandAllocaterclass.h"
 #include"../DirectX/ReaderTargetclass.h"
 #include"../DirectX/Fenceclass.h"
+#include"../DirectX/Root_signatureclass.h"
+#include"../DirectX/Useshaderclass.h"
+#include"../DirectX/Pipline_stateclass.h"
+
+#include"../drawResource/Polygonclass.h"
+
 #include <cassert>
 
 namespace {
@@ -78,6 +84,26 @@ public:
 			return false;
 		}
 
+		if (!polygon_.create(device_)) {
+			assert(false && "ポリゴンの作成に失敗");
+			return false;
+		}
+
+		if (!rootsignature_.create(device_)) {
+			assert(false && "ルートシグネチャーの作成に失敗");
+			return false;
+		}
+
+		if (!shader_.create(device_)) {
+			assert(false && "シェーダーの作成に失敗");
+			return false;
+		}
+
+		if (!piplinestate_.create(device_, shader_, rootsignature_)) {
+			assert(false && "パイプラインの作成に失敗");
+			return false;
+		}
+
 		return true;
 	}
 
@@ -106,25 +132,36 @@ public:
 
 			//ここからコマンドリスト内の書き込み
 			//描画情報をここで全部書く
-			const float clearColer[] = { 1.0f, 1.0f, 1.0f, 0.0f };
-			commandList_.get()->ClearRenderTargetView(handles[0], clearColer, 0, nullptr);
+			commandList_.get()->ClearRenderTargetView(handles[0], clearColer[0], 0, nullptr);
 
+			//
+			commandList_.get()->SetPipelineState(piplinestate_.get());
+			commandList_.get()->SetGraphicsRootSignature(rootsignature_.get());
+			//
+			const auto [w, h] = window_.size();
+			D3D12_VIEWPORT viewport{};
+			viewport.TopLeftX = 0.0f;
+			viewport.TopLeftY = 0.0f;
+			viewport.Width = static_cast<float>(w);
+			viewport.Height = static_cast<float>(h);
+			viewport.MinDepth = 0.0f;
+			viewport.MaxDepth = 1.0f;
 
-			{
-				//
-				
-				//
+			commandList_.get()->RSSetViewports(1, &viewport);
 
-				//
-				
-				//
+			//
+			D3D12_RECT scissor{};
+			scissor.left = 0;
+			scissor.right = w;
+			scissor.top = 0;
+			scissor.bottom = h;
 
-				//
+			commandList_.get()->RSSetScissorRects(1, &scissor);
+			//
+			polygon_.draw(commandList_);
+			//
 
-				//
-
-				//
-			}
+			//	
 
 			//書き込み終わったら使ったレンダーターゲットとコマンドリストにリソースバリアの書き込み
 			auto rtRToP = resourceBarrier(rendertarget_.get(BackBufferIndex), D3D12_RESOURCE_STATE_RENDER_TARGET, D3D12_RESOURCE_STATE_PRESENT);
@@ -173,6 +210,17 @@ private:
 	Fence fence_{};
 	UINT64 frameFenceValue_[2]{};
 	UINT64 nextFenceValue_ = 1;
+
+	float clearColer[4][4] = {
+		{0,0,1,1} ,		//青・0
+		{1,1,1,1},		//白・1
+		{1,0,0,1},		//赤・2
+		{0,0,0,1} };	//黒・3
+
+	Root rootsignature_{};
+	Shader shader_{};
+	PiPline piplinestate_{};
+	MakePolygon polygon_{};
 };
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)

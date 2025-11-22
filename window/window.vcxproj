@@ -131,8 +131,12 @@
     <ClInclude Include="..\DirectX\Deviceclass.h" />
     <ClInclude Include="..\DirectX\DXGIclass.h" />
     <ClInclude Include="..\DirectX\Fenceclass.h" />
+    <ClInclude Include="..\DirectX\Pipline_stateclass.h" />
     <ClInclude Include="..\DirectX\ReaderTargetclass.h" />
+    <ClInclude Include="..\DirectX\Root_signatureclass.h" />
     <ClInclude Include="..\DirectX\Swapchainclassh.h" />
+    <ClInclude Include="..\DirectX\Useshaderclass.h" />
+    <ClInclude Include="..\drawResource\Polygonclass.h" />
     <ClInclude Include="windowclass.h" />
   </ItemGroup>
   <ItemGroup>
@@ -143,8 +147,12 @@
     <ClCompile Include="..\DirectX\Device.cpp" />
     <ClCompile Include="..\DirectX\DXGI.cpp" />
     <ClCompile Include="..\DirectX\Fence.cpp" />
+    <ClCompile Include="..\DirectX\Pipline_state.cpp" />
     <ClCompile Include="..\DirectX\RenderTarget.cpp" />
+    <ClCompile Include="..\DirectX\Root_signature.cpp" />
     <ClCompile Include="..\DirectX\Swapchain.cpp" />
+    <ClCompile Include="..\DirectX\Useshader.cpp" />
+    <ClCompile Include="..\drawResource\Polygon.cpp" />
     <ClCompile Include="..\entry\entry.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>

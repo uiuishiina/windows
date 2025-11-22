@@ -22,6 +22,12 @@
     <Filter Include="DirectX">
       <UniqueIdentifier>{03f1e787-1430-4f9e-ade4-cb3e793ec702}</UniqueIdentifier>
     </Filter>
+    <Filter Include="shader">
+      <UniqueIdentifier>{8bbb7f99-36af-4ab9-8bfa-63eb87e7abbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="drawResource">
+      <UniqueIdentifier>{e168b556-07d6-45d2-8a04-6ca4574604ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="window.cpp">
@@ -57,6 +63,18 @@
     <ClCompile Include="..\entry\entry.cpp">
       <Filter>entry</Filter>
     </ClCompile>
+    <ClCompile Include="..\DirectX\Pipline_state.cpp">
+      <Filter>DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DirectX\Root_signature.cpp">
+      <Filter>DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DirectX\Useshader.cpp">
+      <Filter>DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\drawResource\Polygon.cpp">
+      <Filter>drawResource</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="windowclass.h">
@@ -88,6 +106,18 @@
     </ClInclude>
     <ClInclude Include="..\DirectX\ReaderTargetclass.h">
       <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectX\Pipline_stateclass.h">
+      <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectX\Root_signatureclass.h">
+      <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectX\Useshaderclass.h">
+      <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\drawResource\Polygonclass.h">
+      <Filter>drawResource</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
