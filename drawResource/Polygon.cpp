@@ -11,7 +11,7 @@ namespace {
     Vertex T[] = {{ {-0.5f, -0.5f, 0} , {  0,  0, 1.0, 1.0} },{ { 0.5f,  0.5f,  0} , {  0,  0, 1.0, 1.0} },{ { 0.5f, -0.5f,  0} , {  0,  0, 1.0, 1.0} },};
     Vertex P[] = { { {-0.5f, -0.5f, 0} , {  1,  0,   0, 1.0} },{ { -0.5f,  0.5f,  0} , {  1,  0,   0, 1.0} },{ { 0.5f, 0.5f,  0} , {  1,  0,   0, 1.0} }, };
 
-    Vertex S[] = { { {-0.5f, 0.5f, 0} , {  0,  0, 1.0, 1.0}} , {{0.5f, 0.5f, 0} , {  0,  0, 1.0, 1.0} }, { { -0.5f, -0.5f, 0 } , {  0,  1.0, 0, 1.0}} ,{  { 0.5f, -0.5f, 0 } , {  1.0,  0, 1.0, 1.0}} };
+    Vertex S[] = { { {-0.5f, 0.5f, 0} , {  0,  0, 1.0, 1.0}} , {{0.5f, 0.5f, 0} , {  0,  0, 1.0, 1.0} }, { { -0.5f, -0.5f, 0 } , {  0,  1.0, 0, 1.0}} ,{  { 0.5f, -0.5f, 0 } , {  1.0,  0, 1.0, 1.0}},{  { -0.5, -1, 0 } , {  1.0,  0, 1.0, 1.0}} };
 }
 
 MakePolygon :: ~MakePolygon()
@@ -28,7 +28,7 @@ MakePolygon :: ~MakePolygon()
 
 [[nodiscard]] bool MakePolygon::create(const Device& device)noexcept
 {
-    /*
+    
     for (int i = 0; i< 2; i++)
     {
         if (!createVertexBuffer(device, i)) {
@@ -37,17 +37,17 @@ MakePolygon :: ~MakePolygon()
         if (!createIndexBuffer(device, i)) {
             return false;
         }
-    }*/
-    
-    if (!c(device)) {
-        return false;
     }
+    
+    /*if (!c(device)) {
+        return false;
+    }*/
     return true;
 }
 
 [[nodiscard]] void MakePolygon::draw(const CommandList& commandList)noexcept
 {
-    /*
+    
     commandList.get()->IASetVertexBuffers(0, 1, &vertexBufferView_[0]);
     commandList.get()->IASetIndexBuffer(&indexBufferView_[0]);
     commandList.get()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -56,17 +56,17 @@ MakePolygon :: ~MakePolygon()
     commandList.get()->IASetVertexBuffers(0, 1, &vertexBufferView_[1]);
     commandList.get()->IASetIndexBuffer(&indexBufferView_[1]);
     commandList.get()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-    commandList.get()->DrawIndexedInstanced(3, 1, 0, 0, 0);*/
+    commandList.get()->DrawIndexedInstanced(3, 1, 0, 0, 0);
     
     commandList.get()->IASetVertexBuffers(0, 1, &Cvertex_);
     commandList.get()->IASetIndexBuffer(&Cindex_);
-    commandList.get()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);//D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP//D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST
-    commandList.get()->DrawIndexedInstanced(6, 1, 0, 0, 0);
+    commandList.get()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);//D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP//D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST
+    commandList.get()->DrawIndexedInstanced(5, 1, 0, 0, 0);
 
     //0 1
     //2 3
     //D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP//D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST
-    //{0,1,2,1,2,3}                         //{0,1,2,2,1,3}
+    //{0,1,2,3}                         //{0,1,2,2,1,3}
 }
 
 [[nodiscard]] bool MakePolygon::createVertexBuffer(const Device& device, const int num)noexcept
@@ -237,7 +237,7 @@ MakePolygon :: ~MakePolygon()
 
     //---------------------------------------------------------------------
     {
-        uint16_t triangle[] = { 0, 1, 2,2,1,3 };
+        uint16_t triangle[] = { 0, 1, 2, 3 ,4};
 
     const auto indexBuffersize = sizeof(triangle);
 
