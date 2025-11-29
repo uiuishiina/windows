@@ -22,10 +22,14 @@ public:
 
 	//インデックスバッファ
 	[[nodiscard]] bool createIndexBuffer(const Device& device, const int num)noexcept;
+
+	[[nodiscard]] bool c(const Device& device)noexcept;
 private:
 	ID3D12Resource* vertexBuffer_{};
 	ID3D12Resource* indexBuffer_{};
 
 	D3D12_VERTEX_BUFFER_VIEW vertexBufferView_[2] = {};
+	D3D12_VERTEX_BUFFER_VIEW Cvertex_{};
 	D3D12_INDEX_BUFFER_VIEW indexBufferView_[2] = {};
+	D3D12_INDEX_BUFFER_VIEW Cindex_{};
 };
